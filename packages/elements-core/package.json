@@ -79,6 +79,7 @@
     "react-query": "^3.34.19",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.1.0",
+    "redoc": "^2.0.0-rc.77",
     "tslib": "^2.1.0",
     "urijs": "^1.19.11",
     "util": "^0.12.4",
@@ -121,5 +122,9 @@
   },
   "release": {
     "extends": "@stoplight/scripts/release"
+  },
+  "optionalDependencies": {
+    "mobx": "^6.6.2",
+    "styled-components": "^5.3.5"
   }
 }

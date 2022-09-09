@@ -1,6 +1,7 @@
 import {
   InlineRefResolverProvider,
   NonIdealState,
+  RedocAppStoreProvider,
   RoutingProps,
   useBundleRefsIntoDocument,
   useParsedValue,
@@ -88,6 +89,11 @@ export interface CommonAPIProps extends RoutingProps {
    * @default false
    */
   tryItCorsProxy?: string;
+
+  /**
+   * When set true use Redoc Schema component to render the schema
+   */
+  redocSchema?: boolean;
 }
 
 const propsAreWithDocument = (props: APIProps): props is APIPropsWithDocument => {
@@ -105,6 +111,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     hideExport,
     tryItCredentialsPolicy,
     tryItCorsProxy,
+    redocSchema,
   } = props;
   const apiDescriptionDocument = propsAreWithDocument(props) ? props.apiDescriptionDocument : undefined;
 
@@ -161,29 +168,31 @@ export const APIImpl: React.FC<APIProps> = props => {
 
   return (
     <InlineRefResolverProvider document={parsedDocument}>
-      {layout === 'stacked' ? (
-        <APIWithStackedLayout
-          serviceNode={serviceNode}
-          hideTryIt={hideTryIt}
-          hideExport={hideExport}
-          exportProps={exportProps}
-          tryItCredentialsPolicy={tryItCredentialsPolicy}
-          tryItCorsProxy={tryItCorsProxy}
-        />
-      ) : (
-        <APIWithSidebarLayout
-          logo={logo}
-          serviceNode={serviceNode}
-          hideTryIt={hideTryIt}
-          hideSchemas={hideSchemas}
-          hideInternal={hideInternal}
-          hideExport={hideExport}
-          exportProps={exportProps}
-          tryItCredentialsPolicy={tryItCredentialsPolicy}
-          tryItCorsProxy={tryItCorsProxy}
-          router={props.router}
-        />
-      )}
+      <RedocAppStoreProvider document={redocSchema ? bundledDocument : undefined}>
+        {layout === 'stacked' ? (
+          <APIWithStackedLayout
+            serviceNode={serviceNode}
+            hideTryIt={hideTryIt}
+            hideExport={hideExport}
+            exportProps={exportProps}
+            tryItCredentialsPolicy={tryItCredentialsPolicy}
+            tryItCorsProxy={tryItCorsProxy}
+          />
+        ) : (
+          <APIWithSidebarLayout
+            logo={logo}
+            serviceNode={serviceNode}
+            hideTryIt={hideTryIt}
+            hideSchemas={hideSchemas}
+            hideInternal={hideInternal}
+            hideExport={hideExport}
+            exportProps={exportProps}
+            tryItCredentialsPolicy={tryItCredentialsPolicy}
+            tryItCorsProxy={tryItCorsProxy}
+            router={props.router}
+          />
+        )}
+      </RedocAppStoreProvider>
     </InlineRefResolverProvider>
   );
 };

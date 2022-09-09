@@ -7,6 +7,7 @@ import { JSONSchema7 } from 'json-schema';
 import * as React from 'react';
 
 import { useInlineRefResolver, useResolvedObject } from '../../../context/InlineRefResolver';
+import { useRedocAppStore } from '../../../context/RedocAppStore';
 import { useIsCompact } from '../../../hooks/useIsCompact';
 import { exceedsSize, generateExamplesFromJsonSchema } from '../../../utils/exampleGeneration/exampleGeneration';
 import { getOriginalObject } from '../../../utils/ref-resolving/resolvedObject';
@@ -15,6 +16,7 @@ import { MarkdownViewer } from '../../MarkdownViewer';
 import { DocsComponentProps } from '..';
 import { InternalBadge } from '../HttpOperation/Badges';
 import { ExportButton } from '../HttpService/ExportButton';
+import { RedocSchema } from '../RedocSchema';
 import { TwoColumnLayout } from '../TwoColumnLayout';
 
 export type ModelProps = DocsComponentProps<JSONSchema7>;
@@ -28,6 +30,7 @@ const ModelComponent: React.FC<ModelProps> = ({
 }) => {
   const resolveRef = useInlineRefResolver();
   const data = useResolvedObject(unresolvedData) as JSONSchema7;
+  const redocAppStore = useRedocAppStore();
 
   const { ref: layoutRef, isCompact } = useIsCompact(layoutOptions);
 
@@ -60,8 +63,11 @@ const ModelComponent: React.FC<ModelProps> = ({
       {data.description && data.type === 'object' && <MarkdownViewer role="textbox" markdown={data.description} />}
 
       {isCompact && modelExamples}
-
-      <JsonSchemaViewer resolveRef={resolveRef} schema={getOriginalObject(data)} />
+      {redocAppStore ? (
+        <RedocSchema data={getOriginalObject(data)} appStore={redocAppStore} />
+      ) : (
+        <JsonSchemaViewer resolveRef={resolveRef} schema={getOriginalObject(data)} />
+      )}
     </VStack>
   );
 

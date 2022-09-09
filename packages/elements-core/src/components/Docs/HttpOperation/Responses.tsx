@@ -5,8 +5,10 @@ import { sortBy, uniqBy } from 'lodash';
 import * as React from 'react';
 
 import { useInlineRefResolver } from '../../../context/InlineRefResolver';
+import { useRedocAppStore } from '../../../context/RedocAppStore';
 import { getOriginalObject } from '../../../utils/ref-resolving/resolvedObject';
 import { MarkdownViewer } from '../../MarkdownViewer';
+import { RedocSchema } from '../RedocSchema';
 import { SectionSubtitle, SectionTitle } from '../Sections';
 import { Parameters } from './Parameters';
 
@@ -64,6 +66,7 @@ const Response = ({ response, onMediaTypeChange }: ResponseProps) => {
   const { contents = [], headers = [], description } = response;
   const [chosenContent, setChosenContent] = React.useState(0);
   const refResolver = useInlineRefResolver();
+  const redocAppStore = useRedocAppStore();
 
   const responseContent = contents[chosenContent];
   const schema = responseContent?.schema;
@@ -98,15 +101,18 @@ const Response = ({ response, onMediaTypeChange }: ResponseProps) => {
             </Flex>
           </SectionSubtitle>
 
-          {schema && (
-            <JsonSchemaViewer
-              schema={getOriginalObject(schema)}
-              resolveRef={refResolver}
-              viewMode="read"
-              parentCrumbs={['responses', response.code]}
-              renderRootTreeLines
-            />
-          )}
+          {schema &&
+            (redocAppStore ? (
+              <RedocSchema data={getOriginalObject(schema)} appStore={redocAppStore} />
+            ) : (
+              <JsonSchemaViewer
+                schema={getOriginalObject(schema)}
+                resolveRef={refResolver}
+                viewMode="read"
+                parentCrumbs={['responses', response.code]}
+                renderRootTreeLines
+              />
+            ))}
         </>
       )}
     </VStack>

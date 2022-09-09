@@ -4,9 +4,11 @@ import { IHttpOperationRequestBody } from '@stoplight/types';
 import * as React from 'react';
 
 import { useInlineRefResolver } from '../../../context/InlineRefResolver';
+import { useRedocAppStore } from '../../../context/RedocAppStore';
 import { isJSONSchema } from '../../../utils/guards';
 import { getOriginalObject } from '../../../utils/ref-resolving/resolvedObject';
 import { MarkdownViewer } from '../../MarkdownViewer';
+import { RedocSchema } from '../RedocSchema';
 import { SectionSubtitle } from '../Sections';
 
 export interface BodyProps {
@@ -24,6 +26,7 @@ export const isBodyEmpty = (body?: BodyProps['body']) => {
 
 export const Body = ({ body, onChange }: BodyProps) => {
   const refResolver = useInlineRefResolver();
+  const redocAppStore = useRedocAppStore();
   const [chosenContent, setChosenContent] = React.useState(0);
 
   React.useEffect(() => {
@@ -55,14 +58,17 @@ export const Body = ({ body, onChange }: BodyProps) => {
 
       {description && <MarkdownViewer markdown={description} />}
 
-      {isJSONSchema(schema) && (
-        <JsonSchemaViewer
-          resolveRef={refResolver}
-          schema={getOriginalObject(schema)}
-          viewMode="write"
-          renderRootTreeLines
-        />
-      )}
+      {isJSONSchema(schema) &&
+        (redocAppStore ? (
+          <RedocSchema data={getOriginalObject(schema)} appStore={redocAppStore} />
+        ) : (
+          <JsonSchemaViewer
+            resolveRef={refResolver}
+            schema={getOriginalObject(schema)}
+            viewMode="write"
+            renderRootTreeLines
+          />
+        ))}
     </VStack>
   );
 };
