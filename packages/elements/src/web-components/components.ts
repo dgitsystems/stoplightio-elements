@@ -17,4 +17,5 @@ export const ApiElement = createElementClass(API, {
   tryItCredentialsPolicy: { type: 'string' },
   tryItCorsProxy: { type: 'string' },
   redocSchema: { type: 'boolean' },
+  withCredentials: { type: 'boolean' },
 });
