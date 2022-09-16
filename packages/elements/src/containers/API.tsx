@@ -113,7 +113,13 @@ export interface CommonAPIProps extends RoutingProps {
   tryItCorsProxy?: string;
 
   /**
-   * The amount of references deep should be presented.
+   * Whether to include CORS credentials (cookies, authorization headers, TLS client certificates)
+   * in remote ref requests
+   * @default: false
+   */
+  withCredentials?: boolean;
+
+  /** The amount of references deep should be presented.
    * @default undefined
    */
   maxRefDepth?: number;
@@ -143,6 +149,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     hideExport,
     tryItCredentialsPolicy,
     tryItCorsProxy,
+    withCredentials,
     maxRefDepth,
     renderExtensionAddon,
   } = props;
@@ -166,7 +173,7 @@ export const APIImpl: React.FC<APIProps> = props => {
 
   const document = apiDescriptionDocument || fetchedDocument || '';
   const parsedDocument = useParsedValue(document);
-  const bundledDocument = useBundleRefsIntoDocument(parsedDocument, { baseUrl: apiDescriptionUrl });
+  const bundledDocument = useBundleRefsIntoDocument(parsedDocument, { baseUrl: apiDescriptionUrl, withCredentials });
   const serviceNode = React.useMemo(() => transformOasToServiceNode(bundledDocument), [bundledDocument]);
   const exportProps = useExportDocumentProps({ originalDocument: document, bundledDocument });
 
