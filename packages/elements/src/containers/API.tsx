@@ -103,6 +103,14 @@ export interface CommonAPIProps extends RoutingProps {
    * Allows to define renderers for vendor extensions
    */
   renderExtensionAddon?: ExtensionAddonRenderer;
+
+  /**
+   * Whether to include CORS credentials (cookies, authorization headers, TLS client certificates)
+   * in remote ref requests
+   * @default: false
+   */
+  withCredentials?: boolean;
+
 }
 
 const propsAreWithDocument = (props: APIProps): props is APIPropsWithDocument => {
@@ -122,6 +130,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCorsProxy,
     maxRefDepth,
     renderExtensionAddon,
+    withCredentials,
   } = props;
   const location = useLocation();
   const apiDescriptionDocument = propsAreWithDocument(props) ? props.apiDescriptionDocument : undefined;
@@ -143,7 +152,7 @@ export const APIImpl: React.FC<APIProps> = props => {
 
   const document = apiDescriptionDocument || fetchedDocument || '';
   const parsedDocument = useParsedValue(document);
-  const bundledDocument = useBundleRefsIntoDocument(parsedDocument, { baseUrl: apiDescriptionUrl });
+  const bundledDocument = useBundleRefsIntoDocument(parsedDocument, { baseUrl: apiDescriptionUrl, withCredentials });
   const serviceNode = React.useMemo(() => transformOasToServiceNode(bundledDocument), [bundledDocument]);
   const exportProps = useExportDocumentProps({ originalDocument: document, bundledDocument });
 
