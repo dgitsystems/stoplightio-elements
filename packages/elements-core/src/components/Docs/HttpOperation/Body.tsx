@@ -8,7 +8,7 @@ import { useOptionsCtx } from '../../../context/Options';
 import { isJSONSchema } from '../../../utils/guards';
 import { getOriginalObject } from '../../../utils/ref-resolving/resolvedObject';
 import { MarkdownViewer } from '../../MarkdownViewer';
-import { SectionSubtitle } from '../Sections';
+import { SectionSubtitle, SubSectionPanel } from '../Sections';
 
 export interface BodyProps {
   body: IHttpOperationRequestBody;
@@ -63,15 +63,19 @@ export const Body = ({ body, onChange }: BodyProps) => {
       )}
 
       {isJSONSchema(schema) && (
-        <JsonSchemaViewer
-          resolveRef={refResolver}
+        <SubSectionPanel title={(schema.title ?? '') + ' Schema'} hasContent defaultIsOpen={false}>
+          <Box pl={3} pr={3} pt={5}>
+            <JsonSchemaViewer
+              resolveRef={refResolver}
           maxRefDepth={maxRefDepth}
-          schema={getOriginalObject(schema)}
-          viewMode="write"
-          renderRootTreeLines
-          nodeHasChanged={nodeHasChanged}
+              schema={getOriginalObject(schema)}
+              viewMode="write"
+              renderRootTreeLines
+              nodeHasChanged={nodeHasChanged}
           renderExtensionAddon={renderExtensionAddon}
-        />
+            />
+          </Box>
+        </SubSectionPanel>
       )}
     </VStack>
   );
