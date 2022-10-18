@@ -1,5 +1,5 @@
 import { JsonSchemaViewer } from '@stoplight/json-schema-viewer';
-import { Flex, Select, VStack } from '@stoplight/mosaic';
+import { Box, Flex, Select, VStack } from '@stoplight/mosaic';
 import { IHttpOperationRequestBody } from '@stoplight/types';
 import * as React from 'react';
 
@@ -9,7 +9,7 @@ import { isJSONSchema } from '../../../utils/guards';
 import { getOriginalObject } from '../../../utils/ref-resolving/resolvedObject';
 import { MarkdownViewer } from '../../MarkdownViewer';
 import { RedocSchema } from '../RedocSchema';
-import { SectionSubtitle } from '../Sections';
+import { SectionSubtitle, SubSectionPanel } from '../Sections';
 
 export interface BodyProps {
   body: IHttpOperationRequestBody;
@@ -58,17 +58,22 @@ export const Body = ({ body, onChange }: BodyProps) => {
 
       {description && <MarkdownViewer markdown={description} />}
 
-      {isJSONSchema(schema) &&
-        (redocAppStore ? (
-          <RedocSchema data={getOriginalObject(schema)} appStore={redocAppStore} />
-        ) : (
-          <JsonSchemaViewer
-            resolveRef={refResolver}
-            schema={getOriginalObject(schema)}
-            viewMode="write"
-            renderRootTreeLines
-          />
-        ))}
+      {isJSONSchema(schema) && (
+        <SubSectionPanel title={schema.title + ' Schema'} hasContent defaultIsOpen={false}>
+          <Box pl={3} pr={3} pt={5}>
+            {redocAppStore ? (
+              <RedocSchema data={getOriginalObject(schema)} appStore={redocAppStore} />
+            ) : (
+              <JsonSchemaViewer
+                resolveRef={refResolver}
+                schema={getOriginalObject(schema)}
+                viewMode="write"
+                renderRootTreeLines
+              />
+            )}
+          </Box>
+        </SubSectionPanel>
+      )}
     </VStack>
   );
 };

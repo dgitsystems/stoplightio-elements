@@ -17,10 +17,13 @@ const RedocSchemaComponent: React.FC<RedocSchemaOptions> = ({
   data,
   appStore,
 }) => {
-  let redocSchema;
-  if (appStore && appStore.parser) {
-    redocSchema = new SchemaModel(appStore.parser, data, '', appStore.options);
-  }
+  const redocSchema = React.useMemo(() => {
+    if (appStore && appStore.parser) {
+      return new SchemaModel(appStore.parser, data, '', appStore.options, true);
+    }
+
+    return undefined;
+  }, [appStore, data]);
 
   if (!appStore) {
     return null;

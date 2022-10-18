@@ -1,5 +1,5 @@
 import { JsonSchemaViewer } from '@stoplight/json-schema-viewer';
-import { Flex, IntentVals, Select, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@stoplight/mosaic';
+import { Box, Flex, IntentVals, Select, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@stoplight/mosaic';
 import { IHttpOperationResponse } from '@stoplight/types';
 import { sortBy, uniqBy } from 'lodash';
 import * as React from 'react';
@@ -9,7 +9,7 @@ import { useRedocAppStore } from '../../../context/RedocAppStore';
 import { getOriginalObject } from '../../../utils/ref-resolving/resolvedObject';
 import { MarkdownViewer } from '../../MarkdownViewer';
 import { RedocSchema } from '../RedocSchema';
-import { SectionSubtitle, SectionTitle } from '../Sections';
+import { SectionSubtitle, SectionTitle, SubSectionPanel } from '../Sections';
 import { Parameters } from './Parameters';
 
 interface ResponseProps {
@@ -101,18 +101,23 @@ const Response = ({ response, onMediaTypeChange }: ResponseProps) => {
             </Flex>
           </SectionSubtitle>
 
-          {schema &&
-            (redocAppStore ? (
-              <RedocSchema data={getOriginalObject(schema)} appStore={redocAppStore} />
-            ) : (
-              <JsonSchemaViewer
-                schema={getOriginalObject(schema)}
-                resolveRef={refResolver}
-                viewMode="read"
-                parentCrumbs={['responses', response.code]}
-                renderRootTreeLines
-              />
-            ))}
+          {schema && (
+            <SubSectionPanel title={schema.title + ' Schema'} defaultIsOpen={false} hasContent>
+              <Box pl={3} pr={3} pt={5}>
+                {redocAppStore ? (
+                  <RedocSchema data={getOriginalObject(schema)} appStore={redocAppStore} />
+                ) : (
+                  <JsonSchemaViewer
+                    schema={getOriginalObject(schema)}
+                    resolveRef={refResolver}
+                    viewMode="read"
+                    parentCrumbs={['responses', response.code]}
+                    renderRootTreeLines
+                  />
+                )}
+              </Box>
+            </SubSectionPanel>
+          )}
         </>
       )}
     </VStack>
