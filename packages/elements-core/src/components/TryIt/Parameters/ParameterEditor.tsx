@@ -68,6 +68,7 @@ export const ParameterEditor: React.FC<ParameterProps> = ({
               intent={requiredButEmpty ? 'danger' : 'default'}
               value={value || ''}
               onChange={e => onChange && onChange(e.currentTarget.value)}
+              enterKeyHint="done"
             />
             {examples && (
               <Select
@@ -97,6 +98,7 @@ export const ParameterEditor: React.FC<ParameterProps> = ({
                 size="sm"
                 checked={isOptional}
                 onChange={e => onChangeOptional(!e.target.checked)}
+                enterKeyHint="next"
               />
               <Text
                 className="TextForCheckBox"
