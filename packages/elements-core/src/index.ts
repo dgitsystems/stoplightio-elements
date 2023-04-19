@@ -2,7 +2,13 @@ export { Docs, DocsProps, ExtensionAddonRenderer, ExtensionRowProps, ParsedDocs 
 export { DeprecatedBadge } from './components/Docs/HttpOperation/Badges';
 export { ExportButton, ExportButtonProps } from './components/Docs/HttpService/ExportButton';
 export { ResponsiveSidebarLayout } from './components/Layout/ResponsiveSidebarLayout';
-export { SidebarLayout } from './components/Layout/SidebarLayout';
+export {
+  MAX_CONTENT_WIDTH,
+  SIDEBAR_MAX_WIDTH,
+  SIDEBAR_MIN_WIDTH,
+  SidebarLayout,
+  useResizer,
+} from './components/Layout/SidebarLayout';
 export { LinkHeading } from './components/LinkHeading';
 export { Logo } from './components/Logo';
 export { DefaultSMDComponents } from './components/MarkdownViewer/CustomComponents/CodeComponent';
