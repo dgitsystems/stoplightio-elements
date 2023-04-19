@@ -31,6 +31,7 @@ type SidebarLayoutProps = {
   exportProps?: ExportButtonProps;
   tryItCredentialsPolicy?: 'omit' | 'include' | 'same-origin';
   tryItCorsProxy?: string;
+  sidebarTheme?: 'invert' | 'default';
   renderExtensionAddon?: ExtensionAddonRenderer;
 };
 
@@ -48,6 +49,7 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   exportProps,
   tryItCredentialsPolicy,
   tryItCorsProxy,
+  sidebarTheme = 'default',  
   renderExtensionAddon,
 }) => {
   const container = React.useRef<HTMLDivElement>(null);
@@ -90,7 +92,7 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   );
 
   return (
-    <SidebarLayout ref={container} sidebar={sidebar}>
+    <SidebarLayout ref={container} sidebar={sidebar} theme={sidebarTheme}>
       {node && (
         <ElementsOptionsProvider renderExtensionAddon={renderExtensionAddon}>
           <ParsedDocs

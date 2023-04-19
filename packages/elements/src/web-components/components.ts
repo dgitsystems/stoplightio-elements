@@ -21,6 +21,7 @@ export const ApiElement = createElementClass(API, {
   tryItCredentialsPolicy: { type: 'string' },
   tryItCorsProxy: { type: 'string' },
   withCredentials: { type: 'boolean' },  
+  sidebarTheme: { type: 'string' },
   maxRefDepth: { type: 'number' },
   renderExtensionAddon: { type: 'function' },
 });
