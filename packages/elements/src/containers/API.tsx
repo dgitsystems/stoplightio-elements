@@ -119,6 +119,11 @@ export interface CommonAPIProps extends RoutingProps {
    */
   withCredentials?: boolean;
 
+  /**
+   * Whether to use invert or default theme for sidebar
+   */
+  sidebarTheme?: 'invert' | 'default';
+
   /** The amount of references deep should be presented.
    * @default undefined
    */
@@ -150,6 +155,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCredentialsPolicy,
     tryItCorsProxy,
     withCredentials,
+    sidebarTheme,
     maxRefDepth,
     renderExtensionAddon,
   } = props;
@@ -242,6 +248,7 @@ export const APIImpl: React.FC<APIProps> = props => {
           tryItCredentialsPolicy={tryItCredentialsPolicy}
           tryItCorsProxy={tryItCorsProxy}
           renderExtensionAddon={renderExtensionAddon}
+          sidebarTheme={sidebarTheme}
         />
       )}
       {layout === 'responsive' && (
