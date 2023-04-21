@@ -133,6 +133,11 @@ export interface CommonAPIProps extends RoutingProps {
    * Allows to define renderers for vendor extensions
    */
   renderExtensionAddon?: ExtensionAddonRenderer;
+
+  /**
+   * Add custom header in sidebar
+   */
+  sidebarHeader?: React.ReactNode;
 }
 
 const propsAreWithDocument = (props: APIProps): props is APIPropsWithDocument => {
@@ -156,6 +161,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCorsProxy,
     withCredentials,
     sidebarTheme,
+    sidebarHeader,
     maxRefDepth,
     renderExtensionAddon,
   } = props;
@@ -249,6 +255,7 @@ export const APIImpl: React.FC<APIProps> = props => {
           tryItCorsProxy={tryItCorsProxy}
           renderExtensionAddon={renderExtensionAddon}
           sidebarTheme={sidebarTheme}
+          sidebarHeader={sidebarHeader}
         />
       )}
       {layout === 'responsive' && (

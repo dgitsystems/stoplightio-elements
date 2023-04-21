@@ -24,4 +24,5 @@ export const ApiElement = createElementClass(API, {
   maxRefDepth: { type: 'number' },
   renderExtensionAddon: { type: 'function' },
   sidebarTheme: { type: 'string' },
+  sidebarHeader: { type: 'object' },
 });

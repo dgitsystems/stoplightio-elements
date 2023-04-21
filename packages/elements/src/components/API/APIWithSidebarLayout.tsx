@@ -33,6 +33,7 @@ type SidebarLayoutProps = {
   tryItCorsProxy?: string;
   sidebarTheme?: 'invert' | 'default';
   renderExtensionAddon?: ExtensionAddonRenderer;
+  sidebarHeader?: React.ReactNode;
 };
 
 export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
@@ -51,6 +52,7 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   tryItCorsProxy,
   sidebarTheme = 'default',
   renderExtensionAddon,
+  sidebarHeader,
 }) => {
   const container = React.useRef<HTMLDivElement>(null);
   const tree = React.useMemo(
@@ -88,7 +90,14 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   }
 
   const sidebar = (
-    <Sidebar serviceNode={serviceNode} logo={logo} container={container} pathname={pathname} tree={tree} />
+    <Sidebar
+      serviceNode={serviceNode}
+      logo={logo}
+      container={container}
+      pathname={pathname}
+      tree={tree}
+      sidebarHeader={sidebarHeader}
+    />
   );
 
   return (
@@ -119,9 +128,10 @@ type SidebarProps = {
   container: React.RefObject<HTMLElement>;
   pathname: string;
   tree: TableOfContentsItem[];
+  sidebarHeader?: React.ReactNode;
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ serviceNode, logo, container, pathname, tree }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ serviceNode, logo, container, pathname, tree, sidebarHeader }) => {
   const handleTocClick = () => {
     if (container.current) {
       container.current.scrollIntoView();
@@ -130,6 +140,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ serviceNode, logo, container, 
 
   return (
     <>
+      {sidebarHeader && sidebarHeader}
       <Flex ml={4} mb={5} alignItems="center">
         {logo ? (
           <Logo logo={{ url: logo, altText: 'logo' }} />
