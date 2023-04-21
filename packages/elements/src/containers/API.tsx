@@ -124,6 +124,11 @@ export interface CommonAPIProps extends RoutingProps {
    */
   sidebarTheme?: 'invert' | 'default';
 
+  /**
+   * Add custom header in sidebar
+   */
+  sidebarHeader?: React.ReactNode;  
+  
   /** The amount of references deep should be presented.
    * @default undefined
    */
@@ -155,7 +160,8 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCredentialsPolicy,
     tryItCorsProxy,
     withCredentials,
-    sidebarTheme,    
+    sidebarTheme,  
+    sidebarHeader,  
     maxRefDepth,
     renderExtensionAddon,
   } = props;
@@ -248,6 +254,7 @@ export const APIImpl: React.FC<APIProps> = props => {
           tryItCredentialsPolicy={tryItCredentialsPolicy}
           tryItCorsProxy={tryItCorsProxy}
           sidebarTheme={sidebarTheme}
+          sidebarHeader={sidebarHeader}
           renderExtensionAddon={renderExtensionAddon}
         />
       )}
@@ -267,6 +274,7 @@ export const APIImpl: React.FC<APIProps> = props => {
           tryItCredentialsPolicy={tryItCredentialsPolicy}
           tryItCorsProxy={tryItCorsProxy}
           sidebarTheme={sidebarTheme}
+          sidebarHeader={sidebarHeader}
           renderExtensionAddon={renderExtensionAddon}
           compact={isResponsiveLayoutEnabled}
         />
