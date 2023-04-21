@@ -20,4 +20,5 @@ export const ApiElement = createElementClass(API, {
   renderExtensionAddon: { type: 'function' },
   withCredentials: { type: 'boolean' },
   sidebarTheme: { type: 'string' },
+  sidebarHeader: { type: 'object' },
 });

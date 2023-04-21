@@ -115,6 +115,11 @@ export interface CommonAPIProps extends RoutingProps {
    * Whether to use invert or default theme for sidebar
    */
   sidebarTheme?: 'invert' | 'default';
+
+  /**
+   * Add custom header in sidebar
+   */
+  sidebarHeader?: React.ReactNode;
 }
 
 const propsAreWithDocument = (props: APIProps): props is APIPropsWithDocument => {
@@ -136,6 +141,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     renderExtensionAddon,
     withCredentials,
     sidebarTheme,
+    sidebarHeader,
   } = props;
   const location = useLocation();
   const apiDescriptionDocument = propsAreWithDocument(props) ? props.apiDescriptionDocument : undefined;
@@ -219,6 +225,7 @@ export const APIImpl: React.FC<APIProps> = props => {
           tryItCorsProxy={tryItCorsProxy}
           renderExtensionAddon={renderExtensionAddon}
           sidebarTheme={sidebarTheme}
+          sidebarHeader={sidebarHeader}
         />
       )}
       {layout === 'responsive' && (
