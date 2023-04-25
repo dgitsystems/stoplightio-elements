@@ -1,3 +1,4 @@
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import {
   InlineRefResolverProvider,
   NonIdealState,
@@ -204,7 +205,7 @@ export const APIImpl: React.FC<APIProps> = props => {
   if (!bundledDocument) {
     return (
       <Flex justify="center" alignItems="center" w="full" minH="screen" color="light">
-        <Box as={Icon} icon={['fal', 'circle-notch']} size="3x" spin />
+        <Box as={Icon} icon={faCircleNotch} size="3x" spin />
       </Flex>
     );
   }
