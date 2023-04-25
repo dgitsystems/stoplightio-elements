@@ -92,8 +92,10 @@ export const getQueryParams = ({
       }
     } else if (param.schema?.type === 'array' && value) {
       let nested: string[];
+      // NB. weird merge conflicts here,
+      let parsed: any;
       try {
-        const parsed = JSON.parse(value);
+        parsed = JSON.parse(value);
         if (typeof parsed === 'string') {
           nested = parsed.split(delimiter[param.style as keyof typeof delimiter]);
         } else if (Array.isArray(parsed)) {
@@ -102,7 +104,11 @@ export const getQueryParams = ({
           throw Error();
         }
       } catch (e) {
-        throw new Error(`Cannot use param value "${value}". JSON array expected.`);
+        if (!parsed && typeof value === 'string') {
+          nested = value.split(delimiter[param.style]);
+        } else {
+          throw new Error(`Cannot use param value "${value}". JSON array expected.`);
+        }
       }
 
       if (explode) {
