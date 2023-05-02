@@ -46,6 +46,11 @@ export type TableOfContentsNode<
   type: T;
   meta: string;
   version?: string;
+  description?: string;
+  presentation?: {
+    icon?: string;
+    color?: string;
+  };
 };
 
 export type TableOfContentsNodeGroup = TableOfContentsNode<'http_service'> & TableOfContentsGroup;
