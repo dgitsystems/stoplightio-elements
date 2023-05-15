@@ -1,3 +1,5 @@
+import { FontWeightVals } from '@stoplight/mosaic';
+
 export type TableOfContentsProps = {
   tree: TableOfContentsItem[];
   activeId: string;
@@ -50,6 +52,7 @@ export type TableOfContentsNode<
   presentation?: {
     icon?: string;
     color?: string;
+    fontWeight?: FontWeightVals;
   };
 };
 
