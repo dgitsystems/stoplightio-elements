@@ -25,7 +25,7 @@ type OpenAPIObject = _OpenAPIObject & {
 
 type SpecDocument = Spec | OpenAPIObject;
 
-const isOas2 = (parsed: unknown): parsed is Spec =>
+export const isOas2 = (parsed: unknown): parsed is Spec =>
   isObject(parsed) &&
   'swagger' in parsed &&
   Number.parseInt(String((parsed as Partial<{ swagger: unknown }>).swagger)) === 2;
