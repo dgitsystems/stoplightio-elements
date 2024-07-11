@@ -1,6 +1,6 @@
 import { Box, Flex, Icon, ITextColorProps } from '@stoplight/mosaic';
 import { HttpMethod, NodeType } from '@stoplight/types';
-import { faExternalLink } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLink, IconName } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 
 import { useRouterType } from '../../context/RouterType';
