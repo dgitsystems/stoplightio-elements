@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ serviceNode, logo, container, 
 
   return (
     <>
-      {sidebarHeader && sidebarHeader}
+      {/*sidebarHeader && sidebarHeader*/}
       <Flex ml={4} mb={5} alignItems="center">
         {logo ? (
           <Logo logo={{ url: logo, altText: 'logo' }} />
