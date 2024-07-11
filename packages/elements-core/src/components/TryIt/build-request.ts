@@ -92,7 +92,7 @@ export const getQueryParams = ({
       }
     } else if (param.schema?.type === 'array' && value) {
       let nested: string[];
-      // NB. weird merge conflicts here,
+      // NB. weird merge conflicts here, the DGIT change seems redundant ??
       let parsed: any;
       try {
         parsed = JSON.parse(value);
@@ -105,7 +105,7 @@ export const getQueryParams = ({
         }
       } catch (e) {
         if (!parsed && typeof value === 'string') {
-          nested = value.split(delimiter[param.style]);
+          nested = parsed.split(delimiter[param.style as keyof typeof delimiter]);
         } else {
           throw new Error(`Cannot use param value "${value}". JSON array expected.`);
         }
