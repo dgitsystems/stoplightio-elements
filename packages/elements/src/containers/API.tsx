@@ -279,8 +279,6 @@ export const APIImpl: React.FC<APIProps> = props => {
           exportProps={exportProps}
           tryItCredentialsPolicy={tryItCredentialsPolicy}
           tryItCorsProxy={tryItCorsProxy}
-          sidebarTheme={sidebarTheme}
-          sidebarHeader={sidebarHeader}
           renderExtensionAddon={renderExtensionAddon}
           compact={isResponsiveLayoutEnabled}
         />
