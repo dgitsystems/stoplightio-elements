@@ -192,6 +192,10 @@ const runAuthRequestEhancements = (
   const newQueryParams = [...queryParams];
   const newHeaders = [...headers];
   auths.forEach(auth => {
+    if (!auth.authValue) {
+      // don't add header when no authValue is provided
+      return;
+    }
     if (isApiKeySecurityScheme(auth.scheme)) {
       if (auth.scheme.in === 'query') {
         newQueryParams.push({
