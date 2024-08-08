@@ -20,7 +20,7 @@ export const ApiElement = createElementClass(API, {
   logo: { type: 'string' },
   tryItCredentialsPolicy: { type: 'string' },
   tryItCorsProxy: { type: 'string' },
-  withCredentials: { type: 'boolean' },  
+  withCredentials: { type: 'boolean' },
   sidebarTheme: { type: 'string' },
   sidebarHeader: { type: 'object' },
   maxRefDepth: { type: 'number' },

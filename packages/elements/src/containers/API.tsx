@@ -23,7 +23,7 @@ import { APIWithResponsiveSidebarLayout } from '../components/API/APIWithRespons
 import { APIWithSidebarLayout } from '../components/API/APIWithSidebarLayout';
 import { APIWithStackedLayout } from '../components/API/APIWithStackedLayout';
 import { useExportDocumentProps } from '../hooks/useExportDocumentProps';
-import { transformOasToServiceNode, isOas2 } from '../utils/oas';
+import { isOas2, transformOasToServiceNode } from '../utils/oas';
 
 export type APIProps = APIPropsWithDocument | APIPropsWithUrl;
 
@@ -128,8 +128,8 @@ export interface CommonAPIProps extends RoutingProps {
   /**
    * Add custom header in sidebar
    */
-  sidebarHeader?: React.ReactNode;  
-  
+  sidebarHeader?: React.ReactNode;
+
   /** The amount of references deep should be presented.
    * @default undefined
    */
@@ -161,8 +161,8 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCredentialsPolicy,
     tryItCorsProxy,
     withCredentials,
-    sidebarTheme,  
-    sidebarHeader,  
+    sidebarTheme,
+    sidebarHeader,
     maxRefDepth,
     renderExtensionAddon,
   } = props;

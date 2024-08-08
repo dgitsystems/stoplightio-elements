@@ -32,7 +32,7 @@ type SidebarLayoutProps = {
   tryItCredentialsPolicy?: 'omit' | 'include' | 'same-origin';
   tryItCorsProxy?: string;
   sidebarTheme?: 'invert' | 'default';
-  sidebarHeader?: React.ReactNode;  
+  sidebarHeader?: React.ReactNode;
   renderExtensionAddon?: ExtensionAddonRenderer;
 };
 
@@ -50,7 +50,7 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   exportProps,
   tryItCredentialsPolicy,
   tryItCorsProxy,
-  sidebarTheme = 'default',  
+  sidebarTheme = 'default',
   sidebarHeader,
   renderExtensionAddon,
 }) => {
@@ -90,7 +90,14 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   }
 
   const sidebar = (
-    <Sidebar serviceNode={serviceNode} logo={logo} container={container} pathname={pathname} tree={tree} sidebarHeader={sidebarHeader} />
+    <Sidebar
+      serviceNode={serviceNode}
+      logo={logo}
+      container={container}
+      pathname={pathname}
+      tree={tree}
+      sidebarHeader={sidebarHeader}
+    />
   );
 
   return (
@@ -121,7 +128,7 @@ type SidebarProps = {
   container: React.RefObject<HTMLElement>;
   pathname: string;
   tree: TableOfContentsItem[];
-  sidebarHeader?: React.ReactNode;  
+  sidebarHeader?: React.ReactNode;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ serviceNode, logo, container, pathname, tree, sidebarHeader }) => {
